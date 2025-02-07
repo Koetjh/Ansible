@@ -4,23 +4,13 @@
   become: true
   tasks:
   
-  - name: install apache2 webserver and php package
-    apt: 
+  - name: install webserver and php package
+    package: 
       name: 
-        - apache2
-        - libapache2-mod-php
+        - "{{ apache_package }}"
+        - "{{ php_package }}"
       state: latest
       update_cache: yes
-    when: ansible_distribution == "Ubuntu"
-
-  - name: install apache2 webserver and php package
-    dnf:
-      name:
-        - httpd
-        - php
-      state: latest
-      update_cache: yes
-    when: ansible_distribution == "CentOS"
 
   - name: Start httpd service
     ansible.builtin.systemd_service:

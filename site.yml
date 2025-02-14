@@ -66,6 +66,14 @@
       regexp: '^ServerAdmin'
       line: ServerAdmin admin@admin.admin
     when: ansible_distribution == "CentOS"
+    register: httpd
+
+  - name: restart httpd (CentOS)
+    tags: apache,centos,httpd
+    service:
+      name: httpd
+      state: restarted
+    when: httpd.changed
 
 
   - name: copy default html file to site
@@ -90,11 +98,6 @@
       port: 80/tcp
       permanent: true
       state: enabled
-
-
-
-
-
 
 - hosts: db_servers
   become: true

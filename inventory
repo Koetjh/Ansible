@@ -5,4 +5,5 @@
 10.0.0.3
 [file_servers]
 10.0.0.4
-
+[workstations]
+10.0.0.5

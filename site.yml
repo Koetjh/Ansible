@@ -57,6 +57,16 @@
         - php
       state: latest
     when: ansible_distribution == "CentOS"
+  
+
+  - name: change e-mail address for admin
+    tags: apache, centos, httpd
+    lineinfile: 
+      path: /etc/httpd/conf/httpd.conf
+      regexp: '^ServerAdmin'
+      line: ServerAdmin admin@admin.admin
+    when: ansible_distribution == "CentOS"
+
 
   - name: copy default html file to site
     tags: apache,apache2,httpd
@@ -80,6 +90,11 @@
       port: 80/tcp
       permanent: true
       state: enabled
+
+
+
+
+
 
 - hosts: db_servers
   become: true
